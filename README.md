@@ -26,6 +26,7 @@ Second, when you set the display to a combination of R and N with numbers and th
 Commands you can set through serial are as follows:
 ```
       0 - 99 : Displays the sent number
+   100 - 109 : Displays numbers form 0 to 9 offset to the right
            N : Displays the N character
    110 - 119 : Displays the N0 to N9
            R : Displays the R character
