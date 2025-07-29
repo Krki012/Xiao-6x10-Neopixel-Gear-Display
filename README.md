@@ -1,7 +1,7 @@
 # Xiao-6x10-Neopixel-Gear-Display
 This repository contains the code used for running the 6x10 neopixel display to show the numbers from 0 to 99 as well as letters N and R.
 
-This project utilizes a [SeeedStudio Xiao ESP32-C6 board] (https://www.seeedstudio.com/Seeed-Studio-XIAO-ESP32C6-p-5884.html) and a [6x10 neopixel matrix display] (https://www.seeedstudio.com/6x10-RGB-MATRIX-for-XIAO-p-5771.html). The goal was to create a small colorful display using neopixels for use in sim racing with SimHub. 
+This project utilizes a [SeeedStudio Xiao ESP32-C6 board](https://www.seeedstudio.com/Seeed-Studio-XIAO-ESP32C6-p-5884.html) and a [6x10 neopixel matrix display](https://www.seeedstudio.com/6x10-RGB-MATRIX-for-XIAO-p-5771.html). The goal was to create a small colorful display using neopixels for use in sim racing with SimHub. 
 Unfortnately, the SimHub software does not yet support ESP32 boards out of the box. Rather, it requires some heavy modifications to the Arduino code which I'm not really good at doing. Thus, I made sure that it works over serial communication so I can have a rather slightly modified arduino code that will just send the data to ESP32 via serial. 
 
 Digits are 6x5 in size with the leftmost column being empty to stop digits from overlapping if wrong offsets are set.
