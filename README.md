@@ -36,9 +36,9 @@ COLOR#rrggbb : Sends a HEX color code to change the color of the displayed chara
 ```
 
 # To be done
-~~ESP-NOW:
+~~ESP-NOW:~~
 
-What I'd like to add as features is definetly ESP-NOW communication so that one device can take the data from the PC and broadcast it  to other devices in the vicinity. Read the serial input and broadcast all the data with their respective values and each device       listens for specific data and processes it. ~~
+~~What I'd like to add as features is definetly ESP-NOW communication so that one device can take the data from the PC and broadcast it to other devices in the vicinity. Read the serial input and broadcast all the data with their respective values and each device listens for specific data and processes it.~~
 
 Color options: 
 
