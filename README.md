@@ -6,7 +6,11 @@ Unfortnately, the SimHub software does not yet support ESP32 boards out of the b
 
 Digits are 6x5 in size with the leftmost column being empty to stop digits from overlapping if wrong offsets are set.
 
+ESP-NOW requires the use of aditional ESP32 device. Device connected to the Arduino is the sender as it takes the data from Arduino through Serial and broadcasts it to other devices in range. For now, the broadcast address is set to FF:FF:FF:FF:FF to broadcast to all addresses (I'm new to this, sorry). It also has a built-in BLE capabilites so one can check with a bluetooth device whether the communication is working as intended. So far, I've only set it up to send commands but I have to add some debugging capabilites. 
+Receiver side hasn't changed much other than source of the input. It went from serial.read to onDataRecv callback and pretty much everything else is the same.
+
 # How it works
+## Serial
 The code first gets compiled and uploaded to board and then waits for serial connection to be established. If the communication hasn't begun, the code will just wait in setup part of the code and will not move to the loop. 
 
 If the communication has been established, the code will then loop and wait for data to appear on serial lines. It'll then read it until it hits a new line character ("/c") and the code logic will, through some simple math (devision and modulo) determine the digits that need to be displayed. 
@@ -14,6 +18,12 @@ If the communication has been established, the code will then loop and wait for 
 The sent characters could also be R or N where the code has an if statement that checks for that and simply choosews an array which corresponds to those letters. 
 
 Other commands that I've added include "OFF" command to turn of the display because it can get obnoxiously bright and no programmer ever works in a well lit environment, and "COLOR#xxxxxx" where a HEX color can be provided to change the display's color. 
+
+## ESP-NOW
+Before uploading the code, there is a #define IS_SENDER at the line 3 in the code. By commenting this out you define the device as receiver or sender. Only the part of the code needed to run one or the other gets compiled, depending on what you defined the device as. MAKE SURE TO CHANGE THIS otherwise it will not share data between ESPs. 
+Once the code is compiled and uploaded, the first ESP sets up BLE communication as well as ESP-NOW broadcast which other devices listen to. 
+
+Second ESP32, defined as receiver (commented out #define IS_SENDER) listens for UUID and reads the data when new data is provided. The commands are still the same and functionality remains as it is in Serial version. 
 
 # Known Bugs
 Some of these bugs can be turned in to features. 
@@ -36,9 +46,13 @@ COLOR#rrggbb : Sends a HEX color code to change the color of the displayed chara
 ```
 
 # To be done
-~~ESP-NOW:~~
+ESP-NOW:
 
 ~~What I'd like to add as features is definetly ESP-NOW communication so that one device can take the data from the PC and broadcast it to other devices in the vicinity. Read the serial input and broadcast all the data with their respective values and each device listens for specific data and processes it.~~
+
+Read the Serial input and convert it to ESP-NOW.
+
+Add a UI for sender node (I'm using Elecrow 3.5" Panel with ESP32S3) where user can input a gear, set N or R and set color. Good for debugging.
 
 Color options: 
 
@@ -48,7 +62,8 @@ Also, having an HSL color format might be good for changing the colors with just
 
 Bugs:
 
-- Comment the entirety of the code
-- Fix the bug where changing the display color changes the number.
+- not-a-bug: Comment the entirety of the code
+- ~~Fix the bug where changing the display color changes the number.~~
 - Fix a bug that sets a display to 0 if something other than the listed commands is sent
+- Add more service and characteristic UUIDs and use more nodes to display different data like speed or lap time and test it
 - Optimize the code
